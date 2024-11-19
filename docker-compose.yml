@@ -1,0 +1,15 @@
+services:
+  scripts:
+    image: npcdw/scripts:latest
+    container_name: scripts
+    network_mode: "host"
+    # 如果需要在流量到达限制后，执行宿主机命令，需要放开这两个
+    # pid: host
+    # privileged: true
+    volumes:
+      - "${PWD}/data/:/scripts/data"
+      - "${PWD}/config/:/scripts/config"
+    environment:
+      TZ : 'Asia/Shanghai'
+      LANG: 'C.UTF-8'
+      LC_ALL: 'C.UTF-8'

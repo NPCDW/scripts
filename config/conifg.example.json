@@ -1,0 +1,11 @@
+{
+    "akile": { // 必填，akile 信息
+        "email": "", // 必填，邮箱
+        "password": "" // 必填，密码
+    },
+    "tg": { // 可选，telegram 通知
+        "bot_token": "123456789:QEWEDesfdewqfewfqeqWEQEWQ", // 必填，bot token
+        "chat_id": "-1001234567890", // 必填，聊天ID
+        "topic_id": 0 // 可选，主题ID
+    }
+}
