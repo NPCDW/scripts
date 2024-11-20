@@ -3,26 +3,11 @@ use serde_inline_default::serde_inline_default;
 use serde::{Serialize, Deserialize};
 use crate::util::file_util;
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct TrafficCycleConfig {
-    pub cycle_type: String,
-    pub each: Option<i64>,
-    pub traffic_reset_date: Option<String>,
-    pub start_date: Option<String>,
-    pub end_date: Option<String>,
-    pub traffic_limit: String,
-    pub statistic_method: String,
-    pub exec: Option<String>,
-}
-
 #[serde_inline_default]
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct WebConfig {
-    #[serde_inline_default("0.0.0.0:1453".to_string())]
-    pub listener: String,
-    #[serde_inline_default("/ui".to_string())]
-    pub ui_path: String,
-    pub token: String,
+pub struct AkileConfig {
+    pub email: String,
+    pub password: String,
 }
 
 #[serde_inline_default]
@@ -32,20 +17,15 @@ pub struct TgConfig {
     pub chat_id: String,
     #[serde_inline_default(0)]
     pub topic_id: u64,
-    #[serde_inline_default(true)]
-    pub daily_report: bool,
 }
 
 #[serde_inline_default]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Config {
-    pub network_name: String,
-    pub vps_name: String,
     #[serde_inline_default("info".to_string())]
     pub log_level: String,
-    pub web: Option<WebConfig>,
-    pub tg: Option<TgConfig>,
-    pub traffic_cycle: Option<TrafficCycleConfig>,
+    pub akile: AkileConfig,
+    pub tg: Option<TgConfig>
 }
 
 const CONFIG_FILE_NAME: &'static str = "config/config.json";
