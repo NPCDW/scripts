@@ -9,6 +9,7 @@ pub async fn send_plain_msg(config: &crate::config::app_config::Config, text: St
 #[derive(Debug, Serialize, Deserialize, Clone)]
 struct SendMsgBody {
     chat_id: String,
+    message_thread_id: u64,
     text: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     parse_mode: Option<String>,
@@ -19,6 +20,7 @@ pub async fn send_msg(config: &crate::config::app_config::Config, text: String, 
         let url = format!("https://api.telegram.org/bot{}/sendMessage", tg.bot_token);
         let body = SendMsgBody {
             chat_id: tg.chat_id.clone(),
+            message_thread_id: tg.topic_id.clone(),
             text: text,
             parse_mode: parse_mode,
         };
