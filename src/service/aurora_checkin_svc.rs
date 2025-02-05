@@ -31,7 +31,8 @@ async fn checkin(config: &crate::config::app_config::Config) -> anyhow::Result<(
         tg_util::send_plain_msg(config, format!("Aurora签到失败: {}", res.message)).await;
         return Err(anyhow!(format!("签到失败：{:#?}", res.message)))
     }
-    tg_util::send_plain_msg(config, format!("Aurora: 今日获得 {} 灵石，总计 {} 灵石", res.data.add_points, res.data.points)).await;
+    let data = res.data.unwrap();
+    tg_util::send_plain_msg(config, format!("Aurora: 今日获得 {} 灵石，总计 {} 灵石", data.add_points, data.points)).await;
 
     anyhow::Ok(())
 }
@@ -40,7 +41,7 @@ async fn checkin(config: &crate::config::app_config::Config) -> anyhow::Result<(
 struct AuroraResonseBody<T> {
     code: i32,
     message: String,
-    data: T,
+    data: Option<T>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
