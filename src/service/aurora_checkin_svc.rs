@@ -21,15 +21,11 @@ async fn checkin(config: &crate::config::app_config::Config) -> anyhow::Result<(
     let res = http_util::get("https://server.auroramedia.me/aurora/v1/user/checkin", header_map).await;
     tracing::info!("签到响应：{:?}", res);
     let res: AuroraResonseBody<AuroraCheckinResonseBody> = match res {
-        Err(e) => {
-            tg_util::send_plain_msg(config, format!("Aurora签到失败: {}", e)).await;
-            return Err(anyhow!(format!("签到失败：{}", e)))
-        },
+        Err(e) => return Err(anyhow!(e)),
         Ok(res) => serde_json::from_str(&res)?,
     };
     if res.code != 200 {
-        tg_util::send_plain_msg(config, format!("Aurora签到失败: {}", res.message)).await;
-        return Err(anyhow!(format!("签到失败：{:#?}", res.message)))
+        return Err(anyhow!(res.message))
     }
     let data = res.data.unwrap();
     tg_util::send_plain_msg(config, format!("Aurora: 今日获得 {} 灵石，总计 {} 灵石", data.add_points, data.points)).await;
