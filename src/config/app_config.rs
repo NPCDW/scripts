@@ -5,9 +5,8 @@ use crate::util::file_util;
 
 #[serde_inline_default]
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct AkileConfig {
-    pub email: String,
-    pub password: String,
+pub struct AuroraConfig {
+    pub authorization: String,
 }
 
 #[serde_inline_default]
@@ -24,7 +23,7 @@ pub struct TgConfig {
 pub struct Config {
     #[serde_inline_default("info".to_string())]
     pub log_level: String,
-    pub akile: AkileConfig,
+    pub aurora: AuroraConfig,
     pub tg: Option<TgConfig>
 }
 
@@ -34,8 +33,7 @@ pub fn get_config() -> Config {
     let current_dir = file_util::get_current_dir();
     let filepath = current_dir.join(CONFIG_FILE_NAME);
     if !filepath.exists() {
-        tracing::error!("没有在工作目录 {:?} 找到 {:?}", current_dir, CONFIG_FILE_NAME);
-        std::process::exit(1);
+        panic!("没有在工作目录 {:?} 找到 {:?}", current_dir, CONFIG_FILE_NAME);
     }
     let buf = file_util::read_file(&filepath).unwrap_or_else(|e| {
         panic!("读取配置文件失败: {}, {:?}", &filepath.display() ,e);

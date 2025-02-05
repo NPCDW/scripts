@@ -9,7 +9,7 @@ async fn main() -> anyhow::Result<()> {
     config::log::init(&config);
     tracing::debug!("Read Config: {:#?}", &config);
 
-    service::akile_checkin_svc::checkin_akile(&config).await;
+    service::aurora_checkin_svc::checkin_aurora(&config).await;
 
     anyhow::Ok(())
 }

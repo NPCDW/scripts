@@ -1,1 +1,1 @@
-pub mod akile_checkin_svc;
+pub mod aurora_checkin_svc;

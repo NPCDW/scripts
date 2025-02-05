@@ -1,7 +1,6 @@
 {
-    "akile": { // 必填，akile 信息
-        "email": "", // 必填，邮箱
-        "password": "" // 必填，密码
+    "aurora": { // aurora 信息
+        "authorization": "" // 必填，密码
     },
     "tg": { // 可选，telegram 通知
         "bot_token": "123456789:QEWEDesfdewqfewfqeqWEQEWQ", // 必填，bot token
